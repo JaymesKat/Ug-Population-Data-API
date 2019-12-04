@@ -11,30 +11,26 @@
 |
 */
 
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\SubcountyController;
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/regions', function () use ($router){
-    return 'All Regions data';
-});
+$router->get('/regions', 'RegionController@all');
 
-$router->get('/regions/{region-name}', function () use ($router){
-    return 'Single Region data';
-});
+$router->get('/regions/{regionName}', 'RegionController@get');
 
-$router->get('/districts', function () use ($router){
-    return 'All districts data';
-});
+$router->get('/regions/{regionName}/districts', 'RegionController@getDistricts');
 
-$router->get('/district/{district-name}', function () use ($router){
-    return 'Single district data';
-});
+$router->get('/districts', 'DistrictController@all');
 
-$router->get('/subcounties', function () use ($router){
-    return 'All subcounties data';
-});
+$router->get('/districts/{districtName}', 'DistrictController@get');
 
-$router->get('/subcounty/{subcounty-name}', function () use ($router){
-    return 'Single subcounty data';
-});
+$router->get('/districts/{districtName}/subcounties', 'DistrictController@getSubcounties');
+
+$router->get('/subcounties', 'SubcountyController@all');
+
+$router->get('/subcounties/{subcountyName}', 'SubcountyController@get');
